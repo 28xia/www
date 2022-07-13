@@ -2078,8 +2078,8 @@ function pay_vip($pay_id=null,$nonce=null)
     }
     exit;
 }
-// add_action('wp_ajax_pay_vip', 'pay_vip');
-// add_action('wp_ajax_nopriv_pay_vip', 'pay_vip');
+add_action('wp_ajax_pay_vip', 'pay_vip');
+add_action('wp_ajax_nopriv_pay_vip', 'pay_vip');
 
 
 
