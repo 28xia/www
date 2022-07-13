@@ -1152,7 +1152,9 @@ function charge_pay()
             if ($XHpayConfig['is_pop_qrcode'] && !is_weixin_view()) {
                 //获取二维码地址
                 $RiProPay = new RiProPay;
-                $pay_qrcode_url = $RiProPay->_cao_get_xunhupay_qrcode($result);
+                $url = $result["url"];
+//                $pay_qrcode_url = $RiProPay->_cao_get_xunhupay_qrcode($result);
+                $pay_qrcode_url = $RiProPay->_cao_get_xunhupay_qrcode($url);
                 $iconstr = '<img src="'.get_template_directory_uri() . '/assets/icons/weixin.png" class="qr-pay">';
                 $html_str = '<div class="qrcon"> <h5> '.$iconstr.' </h5> <div class="title">微信扫码支付 '.$order_price.' 元</div> <div align="center" class="qrcode"> <img src="'.$pay_qrcode_url.'"/> </div> <div class="bottom weixinpay"> 请使用微信扫一扫<br>扫描二维码支付</br> </div> </div>';
                 echo json_encode(array('status' => '1', 'type' => '1', 'msg' => $html_str, 'img' => $pay_qrcode_url, 'num' => $order_trade_no));
@@ -1223,7 +1225,9 @@ function charge_pay()
             if ($XHpayConfig['is_pop_qrcode']) {
                 //获取二维码地址
                 $RiProPay = new RiProPay;
-                $pay_qrcode_url = $RiProPay->_cao_get_xunhupay_qrcode($result);
+                $url = $result["url"];
+//                $pay_qrcode_url = $RiProPay->_cao_get_xunhupay_qrcode($result);
+                $pay_qrcode_url = $RiProPay->_cao_get_xunhupay_qrcode($url);
 
                 $iconstr = '<img src="'.get_template_directory_uri() . '/assets/icons/alipay.png" class="qr-pay">';
                 $html_str = '<div class="qrcon"> <h5> '.$iconstr.' </h5> <div class="title">支付宝扫码支付 '.$order_price.' 元</div> <div align="center" class="qrcode"> <img src="'.$pay_qrcode_url.'"/> </div> <div class="bottom alipay"> 请使用支付宝扫一扫<br>扫描二维码支付</br> </div> </div>';
