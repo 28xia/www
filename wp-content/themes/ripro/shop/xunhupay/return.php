@@ -28,16 +28,18 @@ if (!empty($_GET['num'])) {
 	$shopOrder = new ShopOrder;
 	$order = $shopOrder->get($out_trade_no);
 	$vip_pay_setting = _cao('vip-pay-setting');
-    	$payInfo = [];
+    $payInfo = [];
     foreach ($vip_pay_setting as $key => $item) {
-        if ($item['price'] == $postData['order_price']) {
+        if (floatval($item['price']) == floatval($postData['order_price'])) {
             $postVid = $key;
+			$daynum = $item['daynum'];
             break; // 当 $value为c时，终止循环
         }
         
     }
-	if ($postData['post_id']==cao_get_page_by_slug('user') && $order->order_type == 'other') {
-        pay_vip($postVid,wp_create_nonce('caoclick-' . $postData['user_id']));
+	if ($postData['post_id']==cao_get_page_by_slug('user') && $order->order_type == 'other' && $daynum) {
+		$CaoUser = new CaoUser($postData['user_id']);
+        $CaoUser->update_vip_pay($daynum);
     }
 	if ($postData && $postData['status'] == 1) {
 		$_post_id = $postData['post_id'];
