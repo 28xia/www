@@ -758,7 +758,7 @@ class RiProPay
 			echo "no order found!out_trade_no=$out_trade_no";
 			exit();
 		}
-		return array("user_id"=>$order->user_id,"post_id"=>$order->post_id,"order_trade_no"=>$out_trade_no);
+		return array("user_id"=>$order->user_id,"post_id"=>$order->post_id,"order_trade_no"=>$out_trade_no, "order_price"=>$order->order_price, "order_type"=>$order->order_type);
 	}
 	public function send_order_trade_success($out_trade_no,$trade_no,$info){
 				// 验证通过 获取基本信息

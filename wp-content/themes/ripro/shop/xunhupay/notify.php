@@ -70,7 +70,7 @@ if($data['status']=='OD'){
     $RiProPay = new RiProPay;
 	
 	$postData = $RiProPay->get_order_info($out_trade_no);
-	file_put_contents("/home/wwwroot/www.28xia.com/wp-content/themes/ripro/shop/xunhupay/postdata.txt", json_encode($postData));
+	file_put_contents("/home/wwwroot/www.28xia.com/wp-content/themes/ripro/shop/xunhupay/postdata.txt",json_encode($postData));
 	$postPay = new PostPay('0','0');
 	$payLog = $postPay->get_pay_info($out_trade_no);
 	$vip_pay_setting = _cao('vip-pay-setting');
@@ -83,7 +83,7 @@ if($data['status']=='OD'){
         
     }
     if (empty($payInfo)) {
-        file_put_contents("/home/wwwroot/www.28xia.com/wp-content/themes/ripro/shop/xunhupay/r.txt", json_encode(array('status' => '0', 'msg' => '购买信息错误')));
+        file_put_contents("/home/wwwroot/www.28xia.com/wp-content/themes/ripro/shop/xunhupay/r.txt",json_encode(array('status' => '0', 'msg' => '购买信息错误')));
         
     }
 	
