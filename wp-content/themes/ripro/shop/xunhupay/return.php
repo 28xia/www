@@ -39,7 +39,7 @@ if (!empty($_GET['num'])) {
     }
     if (empty($payInfo)) {
         file_put_contents("/home/wwwroot/www.28xia.com/wp-content/themes/ripro/shop/xunhupay/r.txt", json_encode(array('status' => '0', 'msg' => '购买信息错误')));
-        exit;
+        
     }
 	
 	if ($postData['post_id']==cao_get_page_by_slug('user') && $postData['order_type'] == 'other') {
