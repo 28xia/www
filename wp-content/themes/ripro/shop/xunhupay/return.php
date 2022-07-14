@@ -28,8 +28,10 @@ if (!empty($_GET['num'])) {
 	$shopOrder = new ShopOrder;
 	$order = $shopOrder->get($out_trade_no);
 	$vip_pay_setting = _cao('vip-pay-setting');
-    $payInfo = [];
+	$payInfo = [];
+	
     foreach ($vip_pay_setting as $key => $item) {
+	var_dump(floatval($item['price']));
         if (floatval($item['price']) == floatval($postData['order_price'])) {
             $postVid = $key;
 			$daynum = $item['daynum'];
@@ -37,9 +39,11 @@ if (!empty($_GET['num'])) {
         }
         
     }
-	if ($postData['post_id']==cao_get_page_by_slug('user') && $order->order_type == 'other' && $daynum) {
+    if ($postData['post_id']==cao_get_page_by_slug('user') && $order->order_type == 'other') {
+	    if($daynum){
 		$CaoUser = new CaoUser($postData['user_id']);
-        $CaoUser->update_vip_pay($daynum);
+		$CaoUser->update_vip_pay($daynum);
+	    }
     }
 	if ($postData && $postData['status'] == 1) {
 		$_post_id = $postData['post_id'];
