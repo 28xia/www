@@ -69,31 +69,30 @@ if($data['status']=='OD'){
     //发送支付成功回调用
     $RiProPay = new RiProPay;
 	
+	
 	$postData = $RiProPay->get_order_info($out_trade_no);
-	file_put_contents("/home/wwwroot/www.28xia.com/wp-content/themes/ripro/shop/xunhupay/postdata.txt",json_encode($postData));
-	$postPay = new PostPay('0','0');
-	$payLog = $postPay->get_pay_info($out_trade_no);
+	$shopOrder = new ShopOrder;
+	$order = $shopOrder->get($out_trade_no);
 	$vip_pay_setting = _cao('vip-pay-setting');
-    $payInfo = [];
+	$payInfo = [];
+	
     foreach ($vip_pay_setting as $key => $item) {
-        if ($item['price'] == $postData['order_price']) {
+	
+        if (floatval($item['price']) == floatval($postData['order_price'])) {
             $postVid = $key;
+			$daynum = $item['daynum'];
             break; // 当 $value为c时，终止循环
         }
         
     }
-    if (empty($payInfo)) {
-        file_put_contents("/home/wwwroot/www.28xia.com/wp-content/themes/ripro/shop/xunhupay/r.txt",json_encode(array('status' => '0', 'msg' => '购买信息错误')));
-        
+    if ($postData['post_id']==cao_get_page_by_slug('user') && $order->order_type == 'other' && $daynum) {
+	    
+		$CaoUser = new CaoUser($postData['user_id']);
+		$CaoUser->update_vip_pay($daynum);
+	    
     }
+	$RiProPay->send_order_trade_success($out_trade_no,$trade_no,'ripropaysucc');
 	
-	if ($postData['post_id']==cao_get_page_by_slug('user') && $postData['order_type'] == 'other') {
-        # go to vip
-        pay_vip($postVid,wp_create_nonce('caoclick-' . $postData['user_id']));
-       
-    }else{
-		$RiProPay->send_order_trade_success($out_trade_no,$trade_no,'ripropaysucc');
-	}
     echo 'success';exit();
 
 }else{
