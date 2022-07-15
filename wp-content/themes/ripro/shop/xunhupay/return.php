@@ -11,7 +11,7 @@
 /**
  * 微信同步回调
  */
-
+exit;
 header('Content-type:text/html; Charset=utf-8');
 date_default_timezone_set('Asia/Shanghai');
 ob_start();
