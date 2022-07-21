@@ -48,7 +48,7 @@ $wp_create_nonce = wp_create_nonce('caoclick-' . $current_user->ID);
                         <div class="select--box">
                             <select class="dropdown" name="cao_status">
                                 <option value="free">普通</option>
-                                <option value="fee">付费下载</option>
+                                <!--option value="fee">付费下载</option-->
                                 <option value="hide">付费查看内容</option>
                             </select>
                         </div>
